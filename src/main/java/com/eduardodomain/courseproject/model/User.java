@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Classe responsável pela padronização da entidade User
+ * Class reponsible for standardizing the User entity
  * 
  * @author - Eduardo Isidoro Gonçalves
  */
