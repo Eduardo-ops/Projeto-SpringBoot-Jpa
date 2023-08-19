@@ -1,13 +1,14 @@
 package com.eduardodomain.courseproject;
 
-import org.springframework.boot.SpringApplication;
+import static org.springframework.boot.SpringApplication.run;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class CourseprojectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CourseprojectApplication.class, args);
+		run(CourseprojectApplication.class, args);
 	}
 
 }

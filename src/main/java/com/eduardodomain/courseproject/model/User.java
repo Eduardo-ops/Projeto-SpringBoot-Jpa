@@ -3,11 +3,19 @@ package com.eduardodomain.courseproject.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 /**
  * Class reponsible for standardizing the User entity
  * 
  * @author - Eduardo Isidoro Gonçalves
  */
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
 
 	/**
@@ -18,6 +26,8 @@ public class User implements Serializable {
 	/**
 	 * Atribute id
 	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	/**
