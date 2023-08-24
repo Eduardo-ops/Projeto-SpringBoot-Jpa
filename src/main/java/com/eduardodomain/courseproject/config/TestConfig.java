@@ -14,7 +14,7 @@ import com.eduardodomain.courseproject.model.User;
 import com.eduardodomain.courseproject.repositories.UserRepository;
 
 /**
- * Configuration Class for the profile test.
+ * Configuration Class for the test profile.
  * 
  * @author Eduardo Isidoro Gonçalves.
  */
@@ -22,6 +22,9 @@ import com.eduardodomain.courseproject.repositories.UserRepository;
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
 
+	/**
+	 * Atribute userRepository.
+	 */
 	@Autowired
 	private UserRepository userRepository;
 

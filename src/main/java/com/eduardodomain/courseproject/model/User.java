@@ -10,9 +10,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 /**
- * Class reponsible for standardizing the User entity
+ * Class reponsible for standardizing the User entity.
  * 
- * @author - Eduardo Isidoro Gonçalves
+ * @author - Eduardo Isidoro Gonçalves.
  */
 @Entity
 @Table(name = "tb_user")

@@ -4,6 +4,11 @@ import static org.springframework.boot.SpringApplication.run;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Appliocation classe.
+ * 
+ * @author Eduardo Isidoro Gonçalves.
+ */
 @SpringBootApplication
 public class CourseprojectApplication {
 
