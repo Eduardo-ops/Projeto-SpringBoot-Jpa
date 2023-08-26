@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.eduardodomain.courseproject.model.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
@@ -13,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
+import static com.eduardodomain.courseproject.model.enums.OrderStatus.valueOf;
 
 /**
  * Class responsible for standardizing the order entity.
@@ -42,6 +45,11 @@ public class Order implements Serializable {
     private Instant moment;
 
     /**
+     * Atribute orderStatus.
+     */
+    private Integer orderStatus;
+
+    /**
      * Atribute client.
      */
     @JsonIgnore
@@ -59,14 +67,16 @@ public class Order implements Serializable {
     /**
      * Constructor with all fields.
      *
-     * @param id     - Order id parameter.
-     * @param moment - Order momento id parameter.
-     * @param client - Order client parameter.
+     * @param id          - Order id parameter.
+     * @param moment      - Order moment id parameter.
+     * @param orderStatus - Order status.
+     * @param client      - Order client parameter.
      */
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         super();
         this.id = id;
         this.moment = moment;
+        this.setOrderStatus(orderStatus);
         this.client = client;
     }
 
@@ -114,6 +124,22 @@ public class Order implements Serializable {
      */
     public void setMoment(Instant moment) {
         this.moment = moment;
+    }
+
+    /**
+     * @return the orderStatus
+     */
+    public OrderStatus getOrderStatus() {
+        return valueOf(orderStatus);
+    }
+
+    /**
+     * @param orderStatus the orderStatus to set
+     */
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus != null) {
+            this.orderStatus = orderStatus.getStatusCode();
+        }
     }
 
     /**
