@@ -1,13 +1,11 @@
 package com.eduardodomain.courseproject.model;
 
-import java.io.Serializable;
-import java.util.Objects;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Class reponsible for standardizing the User entity.
@@ -49,6 +47,12 @@ public class User implements Serializable {
 	 * Atribute password
 	 */
 	private String password;
+
+	/**
+	 * Atribute orders.
+	 */
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
 
 	/**
 	 * Default constructor
@@ -188,6 +192,13 @@ public class User implements Serializable {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return the orders
+	 */
+	public List<Order> getOrders() {
+		return orders;
 	}
 
 }

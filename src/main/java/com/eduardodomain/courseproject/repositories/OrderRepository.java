@@ -1,14 +1,13 @@
 package com.eduardodomain.courseproject.repositories;
 
+import com.eduardodomain.courseproject.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.eduardodomain.courseproject.model.User;
-
 /**
- * User repository class.
+ * Order repository class.
  *
  * @author Eduardo Isidoro Gonçalves.
  */
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
 
 }
