@@ -3,6 +3,10 @@ package com.eduardodomain.courseproject.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Class reponsible for standardizing the User category.
@@ -29,6 +33,12 @@ public class Category implements Serializable {
      * Atribute name.
      */
     private String name;
+
+    /**
+     * Atribute product list.
+     */
+    @OneToMany(mappedBy = "product")
+    private Set<Product> productList = new HashSet<>();
 
     /**
      * Default constructor.
@@ -105,5 +115,14 @@ public class Category implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Method get.
+     *
+     * @return the productList.
+     */
+    public Set<Product> getProductList() {
+        return this.productList;
     }
 }
