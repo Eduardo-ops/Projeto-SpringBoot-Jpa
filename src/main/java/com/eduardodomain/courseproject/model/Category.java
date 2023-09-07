@@ -1,11 +1,10 @@
 package com.eduardodomain.courseproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -37,8 +36,9 @@ public class Category implements Serializable {
     /**
      * Atribute product list.
      */
-    @OneToMany(mappedBy = "product")
-    private Set<Product> productList = new HashSet<>();
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    private Set<Product> products = new HashSet<>();
 
     /**
      * Default constructor.
@@ -120,9 +120,9 @@ public class Category implements Serializable {
     /**
      * Method get.
      *
-     * @return the productList.
+     * @return the products.
      */
-    public Set<Product> getProductList() {
-        return this.productList;
+    public Set<Product> getProducts() {
+        return this.products;
     }
 }
