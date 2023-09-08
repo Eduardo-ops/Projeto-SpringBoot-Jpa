@@ -2,18 +2,14 @@ package com.eduardodomain.courseproject.model;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.eduardodomain.courseproject.model.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import static com.eduardodomain.courseproject.model.enums.OrderStatus.valueOf;
 
@@ -52,10 +48,13 @@ public class Order implements Serializable {
     /**
      * Atribute client.
      */
-    @JsonIgnore
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "client_id")
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     /**
      * Default constructor
@@ -78,24 +77,6 @@ public class Order implements Serializable {
         this.moment = moment;
         this.setOrderStatus(orderStatus);
         this.client = client;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, id, moment);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Order other = (Order) obj;
-        return Objects.equals(client, other.client) && Objects.equals(id, other.id)
-                && Objects.equals(moment, other.moment);
     }
 
     /**
@@ -156,4 +137,29 @@ public class Order implements Serializable {
         this.client = client;
     }
 
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Order other = (Order) obj;
+        return Objects.equals(client, other.client) && Objects.equals(id, other.id)
+                && Objects.equals(moment, other.moment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(client, id, moment);
+    }
 }

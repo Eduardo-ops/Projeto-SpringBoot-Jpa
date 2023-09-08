@@ -9,19 +9,12 @@ import static com.eduardodomain.courseproject.model.enums.OrderStatus.WAITING_PA
 import java.time.Instant;
 import java.util.Arrays;
 
+import com.eduardodomain.courseproject.model.*;
+import com.eduardodomain.courseproject.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-
-import com.eduardodomain.courseproject.model.Category;
-import com.eduardodomain.courseproject.model.Order;
-import com.eduardodomain.courseproject.model.Product;
-import com.eduardodomain.courseproject.model.User;
-import com.eduardodomain.courseproject.repositories.CategoryRepository;
-import com.eduardodomain.courseproject.repositories.OrderRepository;
-import com.eduardodomain.courseproject.repositories.ProductRepository;
-import com.eduardodomain.courseproject.repositories.UserRepository;
 
 /**
  * Configuration Class for the test profile.
@@ -55,6 +48,12 @@ public class TestConfig implements CommandLineRunner {
      */
     @Autowired
     private ProductRepository productRepository;
+
+    /**
+     * Atribute orderItemRepository.
+     */
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     /**
      * Method to perform manual inserts in datebase h2.
@@ -94,5 +93,12 @@ public class TestConfig implements CommandLineRunner {
         product4.getCategories().add(category3);
         product5.getCategories().add(category2);
         productRepository.saveAll(Arrays.asList(product1, product2, product3, product4, product5));
+
+        // OrderItem objects
+        OrderItem orderItem1 = new OrderItem(order1, product1, 2, product1.getPrice());
+        OrderItem orderItem2 = new OrderItem(order1, product3, 1, product3.getPrice());
+        OrderItem orderItem3 = new OrderItem(order2, product3, 2, product3.getPrice());
+        OrderItem orderItem4 = new OrderItem(order3, product5, 2, product5.getPrice());
+        orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
     }
 }

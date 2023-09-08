@@ -1,6 +1,7 @@
 package com.eduardodomain.courseproject.model;
 
 import com.eduardodomain.courseproject.pk.OrderItemPk;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -25,7 +26,7 @@ public class OrderItem implements Serializable {
      * Atribute id.
      */
     @EmbeddedId
-    private OrderItemPk id;
+    private OrderItemPk id = new OrderItemPk();
 
     /**
      * Atribute quantity.
@@ -65,6 +66,7 @@ public class OrderItem implements Serializable {
      *
      * @return the id order.
      */
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
