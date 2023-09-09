@@ -101,8 +101,8 @@ public class OrderItem implements Serializable {
     /**
      * Method responsible for the calculating order subtotal.
      */
-    public Double subTotal() {
-        return null;
+    public Double getSubTotal() {
+        return price * quantity;
     }
 
     /**

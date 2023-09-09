@@ -80,7 +80,7 @@ public class TestConfig implements CommandLineRunner {
         // Product objects
         Product product1 = new Product(null, "The Lord of Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
         Product product2 = new Product(null, "Smart Tv Lg UHD 55", "Lorem ipsum dolor sit amet, consectetur.", 2899.99, "");
-        Product product3 = new Product(null, "MacBoook A1", "Lorem ipsum dolor sit amet, consectetur.", 5.999, "");
+        Product product3 = new Product(null, "MacBoook A1", "Lorem ipsum dolor sit amet, consectetur.", 5999.99, "");
         Product product4 = new Product(null, "Pc Gamer", "Lorem ipsum dolor sit amet, consectetur.", 8.999, "");
         Product product5 = new Product(null, "Rails for Dummies", "Lorem ipsum dolor sit amet, consectetur.", 100.99, "");
         productRepository.saveAll(Arrays.asList(product1, product2, product3, product4, product5));

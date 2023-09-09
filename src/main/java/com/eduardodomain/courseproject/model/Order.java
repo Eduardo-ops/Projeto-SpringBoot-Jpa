@@ -83,6 +83,15 @@ public class Order implements Serializable {
     }
 
     /**
+     * Method getTotal.
+     *
+     * @return the total value.
+     */
+    public Double getTotal() {
+        return items.stream().mapToDouble(orderItem -> orderItem.getSubTotal()).sum();
+    }
+
+    /**
      * @return the id
      */
     public Long getId() {
