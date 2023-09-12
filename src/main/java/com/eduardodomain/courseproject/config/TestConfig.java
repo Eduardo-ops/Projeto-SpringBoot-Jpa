@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.eduardodomain.courseproject.config;
 
 import static com.eduardodomain.courseproject.model.enums.OrderStatus.PAID;
