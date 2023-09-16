@@ -3,6 +3,7 @@ package com.eduardodomain.courseproject.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.eduardodomain.courseproject.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +38,11 @@ public class UserService {
      *
      * @param id - Param id.
      * @return - Return a specific user.
+     * @exception ResourceNotFoundException - Exception that can be thrown.
      */
     public User findById(Long id) {
         Optional<User> objUser = userRepository.findById(id);
-        return objUser.get();
+        return objUser.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     /**
