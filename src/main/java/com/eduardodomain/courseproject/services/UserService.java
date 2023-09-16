@@ -3,8 +3,12 @@ package com.eduardodomain.courseproject.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.eduardodomain.courseproject.services.exceptions.DataBaseException;
 import com.eduardodomain.courseproject.services.exceptions.ResourceNotFoundException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.eduardodomain.courseproject.model.User;
@@ -38,7 +42,7 @@ public class UserService {
      *
      * @param id - Param id.
      * @return - Return a specific user.
-     * @exception ResourceNotFoundException - Exception that can be thrown.
+     * @throws ResourceNotFoundException - Exception that can be thrown.
      */
     public User findById(Long id) {
         Optional<User> objUser = userRepository.findById(id);
@@ -60,6 +64,12 @@ public class UserService {
      * @param id - Param id.
      */
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(e.getMessage());
+        }
     }
 }
