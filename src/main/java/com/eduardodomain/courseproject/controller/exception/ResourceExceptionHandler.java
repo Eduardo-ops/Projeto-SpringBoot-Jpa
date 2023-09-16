@@ -1,6 +1,7 @@
 package com.eduardodomain.courseproject.controller.exception;
 
 import com.eduardodomain.courseproject.services.exceptions.DataBaseException;
+import com.eduardodomain.courseproject.services.exceptions.EntityNotFoundException;
 import com.eduardodomain.courseproject.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.eduardodomain.courseproject.services.exceptions.DataBaseException;
+import com.eduardodomain.courseproject.services.exceptions.EntityNotFoundException;
 import com.eduardodomain.courseproject.services.exceptions.ResourceNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,11 @@ public class UserService {
      * @return - Return inserting user.
      */
     public User insert(User user) {
-        return userRepository.save(user);
+        try {
+            return userRepository.save(user);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(e);
+        }
     }
 
     /**
