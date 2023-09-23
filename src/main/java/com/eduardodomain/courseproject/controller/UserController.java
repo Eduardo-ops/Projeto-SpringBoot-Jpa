@@ -2,8 +2,10 @@ package com.eduardodomain.courseproject.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.apache.coyote.Response;
+import com.eduardodomain.courseproject.dto.user.UserDTO;
+import com.eduardodomain.courseproject.dto.user.UserFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +35,8 @@ public class UserController {
      * @return - Return all users.
      */
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
-        return ResponseEntity.ok().body(userService.findAll());
+    public ResponseEntity<List<UserDTO>> findAll() {
+        return ResponseEntity.ok().body(userService.findAll().stream().map(user -> new UserDTO(user)).collect(Collectors.toList()));
     }
 
     /**
@@ -54,9 +56,12 @@ public class UserController {
      * @return - Return inserting user.
      */
     @PostMapping
-    public ResponseEntity<User> insert(@RequestBody User user) {
+    public ResponseEntity<UserDTO> insert(@RequestBody UserFormDTO userFormDTO) {
+        User user = new User(userFormDTO.getName(), userFormDTO.getEmail(), userFormDTO.getPhone());
+        userService.insert(user);
+
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
-        return ResponseEntity.created(uri).body(user);
+        return ResponseEntity.created(uri).body(new UserDTO(user));
     }
 
     /**
