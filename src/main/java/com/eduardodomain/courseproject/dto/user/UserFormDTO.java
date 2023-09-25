@@ -1,7 +1,5 @@
 package com.eduardodomain.courseproject.dto.user;
 
-import com.eduardodomain.courseproject.model.User;
-
 import java.io.Serializable;
 
 public class UserFormDTO implements Serializable {
@@ -25,10 +23,6 @@ public class UserFormDTO implements Serializable {
      * Atribute phone
      */
     private String phone;
-
-    public User convertToClient(UserFormDTO userFormDTO) {
-        return new User(userFormDTO.getName(), userFormDTO.getEmail(), userFormDTO.getPhone());
-    }
 
     public String getName() {
         return name;

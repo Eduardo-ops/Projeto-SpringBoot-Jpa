@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.eduardodomain.courseproject.dto.user.UserDTO;
 import com.eduardodomain.courseproject.dto.user.UserFormDTO;
+import com.eduardodomain.courseproject.dto.user.UserUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,11 +58,22 @@ public class UserController {
      */
     @PostMapping
     public ResponseEntity<UserDTO> insert(@RequestBody UserFormDTO userFormDTO) {
-        User user = new User(userFormDTO.getName(), userFormDTO.getEmail(), userFormDTO.getPhone());
-        userService.insert(user);
+        User user = userService.convertToUser(userFormDTO);
+        userService.insert(userService.convertToUser(userFormDTO));
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(new UserDTO(user));
+    }
+
+    /**
+     * Method responsible for update a specific user.
+     *
+     * @return - Return inserting user.
+     */
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> update (@PathVariable Long id, @RequestBody UserUpdateDTO userUpdateDTO) {
+         User user = userService.update(id, userUpdateDTO);
+         return ResponseEntity.ok().body(new UserDTO(user));
     }
 
     /**

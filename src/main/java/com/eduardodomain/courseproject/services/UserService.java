@@ -3,6 +3,8 @@ package com.eduardodomain.courseproject.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.eduardodomain.courseproject.dto.user.UserFormDTO;
+import com.eduardodomain.courseproject.dto.user.UserUpdateDTO;
 import com.eduardodomain.courseproject.services.exceptions.DataBaseException;
 import com.eduardodomain.courseproject.services.exceptions.EntityNotFoundException;
 import com.eduardodomain.courseproject.services.exceptions.ResourceNotFoundException;
@@ -64,6 +66,19 @@ public class UserService {
     }
 
     /**
+     * Method responsible for update a specific user.
+     *
+     * @return - Return updated user.
+     */
+    public User update(Long id, UserUpdateDTO userUpdateDTO) {
+        User userById = findById(id);
+        User user = new User();
+        convertToUserUpdate(userUpdateDTO, user);
+        user.setId(userById.getId());
+        return user;
+    }
+
+    /**
      * Method responsible for deleting a specific user.
      *
      * @param id - Param id.
@@ -76,5 +91,15 @@ public class UserService {
         } catch (DataIntegrityViolationException e) {
             throw new DataBaseException(e.getMessage());
         }
+    }
+
+    public User convertToUser(UserFormDTO userFormDTO) {
+        return new User(userFormDTO.getName(), userFormDTO.getEmail(), userFormDTO.getPhone());
+    }
+
+    private void convertToUserUpdate(UserUpdateDTO userUpdateDTO, User user) {
+        user.setName(userUpdateDTO.getName());
+        user.setPhone(userUpdateDTO.getPhone());
+        user.setPassword(userUpdateDTO.getPassword());
     }
 }
