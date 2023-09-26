@@ -9,6 +9,7 @@ import com.eduardodomain.courseproject.dto.user.UserFormDTO;
 import com.eduardodomain.courseproject.dto.user.UserUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.eduardodomain.courseproject.model.User;
@@ -47,8 +48,8 @@ public class UserController {
      * @return - Return a specific user.
      */
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(userService.findById(id));
+    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new UserDTO(userService.findById(id)));
     }
 
     /**
@@ -57,9 +58,9 @@ public class UserController {
      * @return - Return inserting user.
      */
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody UserFormDTO userFormDTO) {
+    public ResponseEntity<UserDTO> insert(@RequestBody @Validated UserFormDTO userFormDTO) {
         User user = userService.convertToUser(userFormDTO);
-        userService.insert(userService.convertToUser(userFormDTO));
+        userService.insert(user);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(new UserDTO(user));
@@ -71,9 +72,9 @@ public class UserController {
      * @return - Return inserting user.
      */
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> update (@PathVariable Long id, @RequestBody UserUpdateDTO userUpdateDTO) {
-         User user = userService.update(id, userUpdateDTO);
-         return ResponseEntity.ok().body(new UserDTO(user));
+    public ResponseEntity<UserDTO> update(@PathVariable Long id,@RequestBody @Validated UserUpdateDTO userUpdateDTO) {
+        User user = userService.update(id, userUpdateDTO);
+        return ResponseEntity.ok().body(new UserDTO(user));
     }
 
     /**

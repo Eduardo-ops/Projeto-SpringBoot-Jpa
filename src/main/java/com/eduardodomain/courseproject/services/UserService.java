@@ -8,7 +8,6 @@ import com.eduardodomain.courseproject.dto.user.UserUpdateDTO;
 import com.eduardodomain.courseproject.services.exceptions.DataBaseException;
 import com.eduardodomain.courseproject.services.exceptions.EntityNotFoundException;
 import com.eduardodomain.courseproject.services.exceptions.ResourceNotFoundException;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -71,10 +70,9 @@ public class UserService {
      * @return - Return updated user.
      */
     public User update(Long id, UserUpdateDTO userUpdateDTO) {
-        User userById = findById(id);
-        User user = new User();
+        User user = findById(id);
         convertToUserUpdate(userUpdateDTO, user);
-        user.setId(userById.getId());
+        userRepository.save(user);
         return user;
     }
 
